@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WordMaster</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/script.js" defer></script>
+  </head>
+
+  <body id="game">
+    <main class="container">
+      <a href="index.html" class="home">
+        <img src="img/arrowleft.png" class="home" />
+      </a>
+      <h2>Guess the word!</h2>
+
+      <div class="stats">
+        <div class="stat-card">
+          <span class="stat-label">Current Streak</span>
+          <span id="currentStreak">0</span>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-label">Best Streak</span>
+          <span id="bestStreak">0</span>
+        </div>
+      </div>
+
+      <div class="answerContainer"></div>
+
+      <button id="submit">Submit Guess</button>
+    </main>
+  </body>
+</html>

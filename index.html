@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WordMaster</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body id="index">
+    <div class="container">
+      <h1>WORDMASTER</h1>
+
+      <p class="description">
+        Welcome to WordMaster! Your mission is to guess the hidden word before
+        you run out of attempts. Every guess gives you clues about which letters
+        are correct.
+      </p>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="tile green">A</div>
+          <p>Correct letter in the correct position</p>
+        </div>
+
+        <div class="legend-item">
+          <div class="tile yellow">A</div>
+          <p>Correct letter in the wrong position</p>
+        </div>
+
+        <div class="legend-item">
+          <div class="tile gray">A</div>
+          <p>Letter is not in the word</p>
+        </div>
+      </div>
+
+      <button id="startGame" onclick="window.location.href = 'game.html'">Start Game</button>
+    </div>
+  </body>
+</html>
