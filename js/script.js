@@ -46,7 +46,6 @@ function compareWords(guess, answer) {
     for (let i = 0; i < guess.length; i++) {
         const tile = getTile(currentRow, i);
         if (tile.classList.contains("correct")) {
-            tile.disabled = true;
             continue;
         }
         const index = answerLetters.indexOf(guess[i]);
