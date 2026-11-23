@@ -74,81 +74,86 @@ function compareWords(guess, answer) {
 
         header.textContent = "You guessed the word!"
         gameOver = true;
-        submitBtn.textContent = "Play Again"
+
+        document.querySelectorAll(".input").forEach(input => {
+            input.disabled = true;
+
+            submitBtn.textContent = "Play Again"
+        });
     }
     else if (currentRow < row) {
-        for (let x = 0; x < column; x++) {
-            const nextTile = getTile(currentRow, x)
-            nextTile.disabled = false;
+            for (let x = 0; x < column; x++) {
+                const nextTile = getTile(currentRow, x)
+                nextTile.disabled = false;
+            }
+            getTile(currentRow, 0).focus();
         }
-        getTile(currentRow, 0).focus();
-    }
-    else {
-        currentStreak = 0;
-        localStorage.setItem("currentStreak", currentStreak);
-        updateStreaks();
-        header.textContent = `The correct word was: ${answer.toUpperCase()}`;
-        gameOver = true;
-        submitBtn.textContent = "Play Again"
-    }
-};
-
-for (let r = 0; r < row; r++) {
-    const rowDiv = document.createElement("div");
-    rowDiv.classList.add("row");
-
-    for (let c = 0; c < column; c++) {
-        const Input = document.createElement("input");
-        Input.classList.add("input");
-        Input.id = `tile-${r}-${c}`;
-        Input.disabled = r !== 0;
-
-        rowDiv.appendChild(Input);
-    }
-    document.querySelector(".answerContainer").appendChild(rowDiv);
-}
-
-document.querySelectorAll(".row").forEach((rowDiv) => {
-    const inputs = rowDiv.querySelectorAll("input");
-
-    inputs.forEach((input, index) => {
-        input.addEventListener("input", () => {
-            const letters = input.value.replace(/[^a-zA-Z]/g, "").toUpperCase();
-            input.value = letters.slice(0, 1);
-
-            if (letters.length >= 1 && inputs[index + 1]) {
-                inputs[index + 1].focus();
-            }
-        });
-
-        input.addEventListener("keydown", (e) => {
-            if (e.key === "Backspace" && input.value === "" && inputs[index - 1]) {
-                inputs[index - 1].focus();
-            }
-        });
-    });
-});
-
-document.querySelector("#submit").addEventListener("click", () => {
-    if (gameOver) {
-        location.reload();
-        return;
+        else {
+            currentStreak = 0;
+            localStorage.setItem("currentStreak", currentStreak);
+            updateStreaks();
+            header.textContent = `The correct word was: ${answer.toUpperCase()}`;
+            gameOver = true;
+            submitBtn.textContent = "Play Again"
+        }
     };
 
-    let guess = "";
+    for (let r = 0; r < row; r++) {
+        const rowDiv = document.createElement("div");
+        rowDiv.classList.add("row");
 
-    for (let y = 0; y < column; y++) {
-        guess += getTile(currentRow, y).value;
+        for (let c = 0; c < column; c++) {
+            const Input = document.createElement("input");
+            Input.classList.add("input");
+            Input.id = `tile-${r}-${c}`;
+            Input.disabled = r !== 0;
+
+            rowDiv.appendChild(Input);
+        }
+        document.querySelector(".answerContainer").appendChild(rowDiv);
     }
-    guess = guess.toLowerCase();
 
-    if(guess.length < column) return;
+    document.querySelectorAll(".row").forEach((rowDiv) => {
+        const inputs = rowDiv.querySelectorAll("input");
 
-    const result = compareWords(guess, answer);
-});
+        inputs.forEach((input, index) => {
+            input.addEventListener("input", () => {
+                const letters = input.value.replace(/[^a-zA-Z]/g, "").toUpperCase();
+                input.value = letters.slice(0, 1);
 
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-        submitBtn.click();
-    }
-});
+                if (letters.length >= 1 && inputs[index + 1]) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener("keydown", (e) => {
+                if (e.key === "Backspace" && input.value === "" && inputs[index - 1]) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    });
+
+    document.querySelector("#submit").addEventListener("click", () => {
+        if (gameOver) {
+            location.reload();
+            return;
+        };
+
+        let guess = "";
+
+        for (let y = 0; y < column; y++) {
+            guess += getTile(currentRow, y).value;
+        }
+        guess = guess.toLowerCase();
+
+        if (guess.length < column) return;
+
+        const result = compareWords(guess, answer);
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            submitBtn.click();
+        }
+    });
